@@ -10,18 +10,24 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <sstream>
+#include <vector>
+
+#include "Logger.hpp"
+#include "Scanner.hpp"
+#include "Token.hpp"
 
 // forward declarations
 void runFile(const char *lFilename);
 void runPrompt();
-void run(std::string lLine);
+void run(const std::string &lLine, Logger &lLogger);
 
 //-----------------------------------------------------------------------------
 //
 //	The main function of the interpreter supports two ways of running code.
-//      1. Ran with no arguments; it drops you into a prompt where you can
+//      1. Ran with no arguments. It drops you into a prompt where you can
 //          enter and execute code one line at a time.
-//      2. Ran with one argument to a single file; it reads and executes.
+//      2. Ran with one argument to a single file. It reads and executes.
 //
 //-----------------------------------------------------------------------------
 int main(int argc, const char* argv[])
@@ -43,28 +49,53 @@ int main(int argc, const char* argv[])
 
 void runFile(const char *lFilename)
 {
-    std::string lLine;
+    Logger lLogger;
+
+    std::ifstream ifs(lFilename, std::ios::in);
+    if(!ifs.fail())
+    {
+        std::ostringstream contents;
+        contents << ifs.rdbuf();
+        ifs.close();
+        run(contents.str(), lLogger);
+
+        if (lLogger.mHadError) exit(65);
+    }
+    else
+    {
+        std::cout << "Error opening file";
+        exit(66);
+    }
 }
 
 void runPrompt()
 {
+    Logger lLogger;
+    
     std::string lLine;
     while(1)
     {
         std::cout << "> ";
         
-        if(!std::getline(std::cin, lLine))
+        if(!std::getline(std::cin, lLine).fail())
         {
             std::cout << "\n";
             break;
         }
-        run(lLine);
+        run(lLine, lLogger);
+        lLogger.mHadError = false;
     }
 }
 
-void run(std::string lLine)
+void run(const std::string &lLine, Logger &lLogger)
 {
+    Scanner Scanner(lLine);
+    std::vector<Token> tokens = Scanner.ScanTokens();
 
+    for(Token token : tokens)
+    {
+        std::cout << "token" << std::endl;
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
