@@ -7,16 +7,16 @@ BINDIR = bin
 CC = g++
 CPPFLAGS = -g -Wall -I $(INCDIR)
 
-# List of .c and .h sources
+# List of .cpp and .hpp sources
 SOURCES = $(wildcard $(SRCDIR)/*.cpp)
-HEADERS = $(wildcard $(INCDIR)/*.h)
+HEADERS = $(wildcard $(INCDIR)/*.hpp)
 OBJECTS = $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 
 $(TARGET): $(OBJECTS) | $(BINDIR)
-	$(CC) $(CPPFLAGS) $(OBJECTS) -o $@
+	@$(CC) $(CPPFLAGS) $(OBJECTS) -o $@
 
 $(OBJDIR)/%.o : $(SRCDIR)/%.cpp | $(OBJDIR)
-	$(CC) $(CPPFLAGS) -c $< -o $@
+	@$(CC) $(CPPFLAGS) -c $< -o $@
 
 $(OBJDIR):
 	@mkdir $@
