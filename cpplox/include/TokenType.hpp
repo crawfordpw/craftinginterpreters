@@ -2,7 +2,7 @@
 //
 //	File: TokenType.hpp
 //
-//	 header file for the Token Type class
+//	Header file for the Token Type class
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -60,7 +60,7 @@ enum TokenType
     VAR,
     WHILE,
 
-    EOF
+    ENDFILE
 };
 
 #endif

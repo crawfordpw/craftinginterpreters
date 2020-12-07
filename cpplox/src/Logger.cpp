@@ -10,6 +10,8 @@
 
 #include "Logger.hpp"
 
+Logger::Logger() : mHadError(false) {}
+
 void Logger::Error(unsigned int lLine, const std::string &lMessage)
 {
     Report(lLine, lMessage, "");

@@ -22,7 +22,7 @@ class Token
         std::string     mLiteral;
         unsigned int    mLine;
 
-        Token() : mType(TokenType::INVALID), mLexeme(""), mLiteral(""), mLine(0) {}
+        Token();
         Token(TokenType lType, std::string lLexeme, std::string lLiteral, unsigned int lLine);
 
         std::string ToString();

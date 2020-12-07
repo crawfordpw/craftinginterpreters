@@ -17,7 +17,8 @@ class Logger
 
         bool mHadError;
 
-        Logger() : mHadError(false) {}
+        Logger();
+
         void Error(unsigned int lLine, const std::string &lMessage);
 
     private:

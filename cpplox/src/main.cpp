@@ -20,7 +20,7 @@
 // forward declarations
 void runFile(const char *lFilename);
 void runPrompt();
-void run(const std::string &lLine, Logger &lLogger);
+void run(const std::string &lLine, Logger *lLogger);
 
 //-----------------------------------------------------------------------------
 //
@@ -57,22 +57,22 @@ void runFile(const char *lFilename)
         std::ostringstream contents;
         contents << ifs.rdbuf();
         ifs.close();
-        run(contents.str(), lLogger);
+        run(contents.str(), &lLogger);
 
         if (lLogger.mHadError) exit(65);
     }
     else
     {
-        std::cout << "Error opening file";
+        std::cout << "Error opening file: " << lFilename;
         exit(66);
     }
 }
 
 void runPrompt()
 {
-    Logger lLogger;
-    
+    Logger      lLogger;
     std::string lLine;
+
     while(1)
     {
         std::cout << "> ";
@@ -82,14 +82,14 @@ void runPrompt()
             std::cout << "\n";
             break;
         }
-        run(lLine, lLogger);
+        run(lLine, &lLogger);
         lLogger.mHadError = false;
     }
 }
 
-void run(const std::string &lLine, Logger &lLogger)
+void run(const std::string &lSource, Logger *lLogger)
 {
-    Scanner Scanner(lLine);
+    Scanner Scanner(lSource, lLogger);
     std::vector<Token> tokens = Scanner.ScanTokens();
 
     for(Token token : tokens)

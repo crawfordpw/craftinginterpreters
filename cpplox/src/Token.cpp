@@ -10,10 +10,11 @@
 
 #include "Token.hpp"
 
+Token::Token() : mType(TokenType::INVALID), mLexeme(""), mLiteral(""), mLine(0) {}
+
 Token::Token(TokenType lType, std::string lLexeme, std::string lLiteral, unsigned int lLine)
     : mType(lType), mLexeme(lLexeme), mLiteral(lLiteral), mLine(lLine)
     {}
-
 
 std::string Token::ToString()
 {
