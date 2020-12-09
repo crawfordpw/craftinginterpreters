@@ -5,7 +5,7 @@ INCDIR = include
 BINDIR = bin
 
 CC = g++
-CPPFLAGS = -g -Wall -I $(INCDIR)
+CPPFLAGS = -g -Wall -Wno-multichar -I $(INCDIR)
 
 # List of .cpp and .hpp sources
 SOURCES = $(wildcard $(SRCDIR)/*.cpp)

@@ -32,7 +32,7 @@ void run(const std::string &lLine, Logger *lLogger);
 //-----------------------------------------------------------------------------
 int main(int argc, const char* argv[])
 { 
-    switch(argc)
+    switch (argc)
     {
         case 1:
             runPrompt();
@@ -52,7 +52,7 @@ void runFile(const char *lFilename)
     Logger lLogger;
 
     std::ifstream ifs(lFilename, std::ios::in);
-    if(!ifs.fail())
+    if (!ifs.fail())
     {
         std::ostringstream contents;
         contents << ifs.rdbuf();
@@ -73,11 +73,11 @@ void runPrompt()
     Logger      lLogger;
     std::string lLine;
 
-    while(1)
+    while (1)
     {
         std::cout << "> ";
         
-        if(!std::getline(std::cin, lLine).fail())
+        if (!std::getline(std::cin, lLine).fail())
         {
             std::cout << "\n";
             break;
@@ -92,9 +92,9 @@ void run(const std::string &lSource, Logger *lLogger)
     Scanner Scanner(lSource, lLogger);
     std::vector<Token> tokens = Scanner.ScanTokens();
 
-    for(Token token : tokens)
+    for (Token token : tokens)
     {
-        std::cout << "token" << std::endl;
+        std::cout << token.mType << " " << token.mLexeme << std::endl;
     }
 }
 
