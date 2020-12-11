@@ -4,8 +4,8 @@
 //
 //	The Scanner is responsible for stepping through the source one character
 //  at a time, pushing valid tokens to a vector. A token is made up of a lexeme,
-//  which is the smallest group of character sequences that represent something,
-//  among with other data, such as the line it was found on.
+//  which is the smallest group of character sequences that represent something.
+//  A token contains a lexeme among other data, such as the line it was found on.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -173,7 +173,7 @@ void Scanner::Identifier()
 
     std::string lText = mSource.substr(mStart, mCurrent - mStart);
     auto lType = mReservedWords.find(lText);
-    
+
     if (lType == mReservedWords.end())
     {
         AddToken(TokenType::IDENTIFIER);
